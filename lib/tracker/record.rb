@@ -1,7 +1,7 @@
 module Tracker
   class Record
 
-    attr_reader :category, :project, :hours, :minutes, :description
+    attr_reader :category, :project, :hours, :minutes, :description, :created_at
 
     def initialize(attrs = {})
       @category = attrs.fetch(:category)
@@ -9,6 +9,7 @@ module Tracker
       @hours = attrs.fetch(:hours, 0)
       @minutes = attrs.fetch(:minutes, 0)
       @description = attrs[:description]
+      @created_at = Time.now
     end
 
     def duration

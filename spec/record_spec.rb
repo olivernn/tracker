@@ -16,5 +16,6 @@ describe Tracker::Record do
     its(:duration) { should == 90 }
     its(:project) { should == 'efg' }
     its(:description) { should == 'lots of jolly good work' }
+    its(:created_at) { should_not be_nil }
   end
 end 
