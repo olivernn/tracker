@@ -15,5 +15,9 @@ module Tracker
     def duration
       hours * 60 + minutes
     end
+
+    def valid?
+      !category.empty? && duration > 0
+    end
   end
 end
