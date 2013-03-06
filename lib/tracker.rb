@@ -1,5 +1,6 @@
 require "tracker/version"
 require "tracker/line_parser"
+require "tracker/record"
 
 module Tracker
   CATEGORIES = %w(
