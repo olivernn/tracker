@@ -4,9 +4,9 @@ describe Tracker::RecordPresenter do
   describe "#as_csv" do
     let(:record) { double({
       category: 'DEV_SUPPORT',
-      project: 'efg',
+      project: 'Efg',
       duration: 90,
-      description: 'some awesome project yo',
+      description: 'Some Awesome Project YO',
       created_at: Time.new(2013,1,1)
     })}
 
@@ -15,7 +15,7 @@ describe Tracker::RecordPresenter do
     subject { record_presenter.as_csv }
 
     it "should include the category" do
-      subject[0].should == 'DEV_SUPPORT'
+      subject[0].should == 'dev_support'
     end
 
     it "should include the project name" do
@@ -27,7 +27,7 @@ describe Tracker::RecordPresenter do
     end
 
     it "should include the description" do
-      subject[3].should == 'some awesome project yo'
+      subject[3].should == 'Some Awesome Project YO'
     end
 
     it "should include the created_at" do

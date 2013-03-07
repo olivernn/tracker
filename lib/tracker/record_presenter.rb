@@ -9,7 +9,7 @@ module Tracker
     end
 
     def as_csv
-      [category, project, duration, description, created_at]
+      [category.downcase, project.downcase, duration, description, created_at]
     end
 
     private
