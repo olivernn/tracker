@@ -2,7 +2,8 @@ module Tracker
   class LineParser
 
     PROJECT_NAME_REGEX = /\#(\w+)/
-    TIME_REGEX = /(\d+h)?(\d+m)/
+    HOURS_REGEX = /(\d+)h/
+    MINUTES_REGEX = /(\d+)m/
     DESCRIPTION_REGEX = /\|(.+)/
 
     attr_reader :line
@@ -12,8 +13,6 @@ module Tracker
     end
 
     def parse
-      hours, minutes = duration
-
       {
         category: category,
         hours: hours,
@@ -29,8 +28,20 @@ module Tracker
       Tracker::CATEGORIES.find { |category| line.include?(category) }
     end
 
-    def duration
-      line.match(TIME_REGEX).captures.map(&:to_i)
+    def hours
+      if match = line.match(HOURS_REGEX)
+        match.captures.first.to_i
+      else
+        0
+      end
+    end
+
+    def minutes
+      if match = line.match(MINUTES_REGEX)
+        match.captures.first.to_i
+      else
+        0
+      end
     end
 
     def project

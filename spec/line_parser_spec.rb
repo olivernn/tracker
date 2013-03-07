@@ -76,5 +76,29 @@ describe Tracker::LineParser do
         subject[:description].should == 'this is a description'
       end
     end
+
+    context "duration has minutes only" do
+      let(:line) { "DEV_SUPPORT #efg 30m | this is a description" }
+
+      it "should extract the hours" do
+        subject[:hours].should == 0
+      end
+
+      it "should extract the minutes" do
+        subject[:minutes].should == 30
+      end
+    end
+
+    context "duration has hours only" do
+      let(:line) { "DEV_SUPPORT #efg 1h | this is a description" }
+
+      it "should extract the hours" do
+        subject[:hours].should == 1
+      end
+
+      it "should extract the minutes" do
+        subject[:minutes].should == 0
+      end
+    end
   end
 end 
