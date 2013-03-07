@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
+
+require 'readline'
+require 'tracker'
+require 'csv'
+
+csv = CSV.open(File.expand_path('~/.tracking.csv'), 'a+')
+
+project_completions = csv.map { |row| row[1] }.uniq
+
+completion = proc { |s|
+  Tracker::CATEGORIES.grep(/^#{Regexp.escape(s.upcase)}/) +
+  project_completions
+    .grep(/^#{Regexp.escape(s.gsub('#', ''))}/)
+    .map { |s| "##{s}" }
+}
+
+Readline.completion_append_character = " "
+Readline.completion_proc = completion
+
+while line = Readline.readline('> ', true)
+  if line == "exit"
+    csv.close
+    exit
+  end
+
+  parser = Tracker::LineParser.new(line)
+  record = Tracker::Record.new(parser.parse)
+  record_presenter = Tracker::RecordPresenter.new(record)
+
+  if record.valid?
+    csv << record_presenter.as_csv
+    puts "ok"
+  else
+    puts "record invalid"
+  end
+end
