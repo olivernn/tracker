@@ -1,29 +1,24 @@
 # Tracker
 
-TODO: Write a gem description
+Simple time tracking tool for Batman@New-Bamboo
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Clone the repository and then do a rake build && rake install
 
-    gem 'tracker'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install tracker
+This is _not_ on rubygems.
 
 ## Usage
 
-TODO: Write usage instructions here
+Record tasks using the simple text format. A category and duration are mandatory.
 
-## Contributing
+Tab completion is available for both the category and the project name.o
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+Project names must be prefixed with a #, durations are expressed as number of hours and number of minutes, both are optional but at least one must be passed.  E.g. 1h, 1h30m & 30m
+
+    $ tracker
+    > CLIENT_SUPPORT #efg 1h30m | optional description
+    ok
+
+To stop recording tasks just enter `exit`
+
