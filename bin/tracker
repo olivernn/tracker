@@ -21,6 +21,10 @@ completion = proc { |s|
 Readline.completion_append_character = " "
 Readline.completion_proc = completion
 
+puts "Records must include a category and a duration"
+puts "Duration should be expressed as hours and/or minutes, e.g. 1h or 1h30m or 30m"
+puts "To stop recording tasks enter 'exit'"
+
 while line = Readline.readline('> ', true)
   if line == "exit"
     csv.close
