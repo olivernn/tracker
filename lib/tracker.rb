@@ -14,6 +14,4 @@ module Tracker
     CLIENT_SUPPORT_NO_CONTRACT
     BATMAN_TOOLS
   )
-
-  # Your code goes here...
 end
