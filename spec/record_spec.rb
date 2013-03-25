@@ -17,6 +17,21 @@ describe Tracker::Record do
     its(:project) { should == 'efg' }
     its(:description) { should == 'lots of jolly good work' }
     its(:created_at) { should_not be_nil }
+
+    context "missing project" do
+      subject { Tracker::Record.new(attributes.reject { |k,_| k == :project })}
+      its(:project) { should == '' }
+    end
+
+    context "missing hours" do
+      subject { Tracker::Record.new(attributes.reject { |k,_| k == :hours })}
+      its(:hours) { should == 0 }
+    end
+
+    context "missing minutes" do
+      subject { Tracker::Record.new(attributes.reject { |k,_| k == :minutes })}
+      its(:minutes) { should == 0 }
+    end
   end
 
   describe "#valid?" do

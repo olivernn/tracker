@@ -21,11 +21,11 @@ describe Tracker::LineParser do
       end
 
       it "should not have a project" do
-        subject[:project].should be_nil
+        subject.has_key?(:project).should be_false
       end
 
       it "should not have a description" do
-        subject[:description].should be_nil
+        subject.has_key?(:description).should be_false
       end
     end
 
@@ -49,7 +49,7 @@ describe Tracker::LineParser do
       end
 
       it "should not have a description" do
-        subject[:description].should be_nil
+        subject.has_key?(:description).should be_false
       end
     end
 

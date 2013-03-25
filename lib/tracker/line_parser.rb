@@ -13,13 +13,11 @@ module Tracker
     end
 
     def parse
-      {
-        category: category,
-        hours: hours,
-        minutes: minutes,
-        project: project,
-        description: description
-      }
+      [:category, :hours, :minutes, :project, :description].inject({}) do |memo, attr|
+        val = send(attr)
+        memo[attr] = val unless val.nil?
+        memo
+      end
     end
 
     private
