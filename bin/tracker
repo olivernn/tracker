@@ -10,6 +10,8 @@ program :name, 'tracker'
 program :version, Tracker::VERSION
 program :description, 'Time tracking for Batman'
 
+default_command :record
+
 command :record do |c|
   c.syntax = 'tracker record'
   c.description = 'enters interactive record mode'
@@ -24,8 +26,6 @@ command :report do |c|
   c.option '--month NUMBER', Integer, 'Selects the month to report on, defaults to current month'
   c.option '--year NUMBER', Integer, 'Selects the year to report on, defaults to current year'
   c.action do |args, options|
-    today = Time.now
-    options.default month: today.month, year: today.year
-    puts Tracker::Commands::Reporter.run(options)
+    puts Tracker::Commands::Reporter.run(year: options.year, month: options.month)
   end
 end

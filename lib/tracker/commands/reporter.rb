@@ -11,38 +11,23 @@ module Tracker
         today = Time.now
         @year = options[:year] || today.year
         @month = options[:month] || today.month
-        @csv = CSV.open(File.expand_path('~/.tracking.csv'), 'r')
+        @record_list = Tracker::RecordList.new(Tracker::DEFAULT_CSV_PATH)
       end
 
       def run
-        CSV.generate do |output|
-          category_sums.each do |category, percentage|
-            output << [category, percentage]
-          end
-        end
+        category_summary = Tracker::CategorySummary.new(records)
+        puts Tracker::GraphFormatter.new(category_summary.lines).to_s
       end
 
       private
 
-      def total_time
-        @total_time ||= entries.inject(0) { |count, row| count + row[2].to_i }.to_f
-      end
-
-      def category_sums
-        @category_sums ||= entries.group_by(&:first).each_with_object({}) do |(category, values), memo|
-          time = values.inject(0) { |count, row| count + row[2].to_i }
-          memo[category] = (time / total_time) * 100
+      def records
+        record_list.select do |record|
+          record.created_at.month == month && record.created_at.year == year
         end
       end
 
-      def entries
-        @entries ||= csv.each.select do |row|
-          date = Date.parse(row[4])
-          date.year == year && date.month == month
-        end
-      end
-
-      attr_reader :csv, :year, :month
+      attr_reader :record_list, :year, :month
     end
   end
 end

@@ -3,8 +3,9 @@ require 'forwardable'
 module Tracker
   class RecordList
     extend Forwardable
+    include Enumerable
 
-    def_delegators :records, :count, :<<
+    def_delegators :records, :each, :<<
     def_delegators :csv, :close
 
     def initialize(file_path)
