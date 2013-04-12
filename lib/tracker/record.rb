@@ -9,7 +9,7 @@ module Tracker
       @hours = attrs.fetch(:hours, 0)
       @minutes = attrs.fetch(:minutes, 0)
       @description = attrs[:description]
-      @created_at = Time.now
+      @created_at = attrs.fetch(:created_at, Time.now)
     end
 
     def duration
