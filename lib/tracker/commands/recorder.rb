@@ -57,6 +57,7 @@ module Tracker
         puts "Records must include a category and a duration"
         puts "Duration should be expressed as hours and/or minutes, e.g. 1h or 1h30m or 30m"
         puts "To stop recording tasks enter 'exit'"
+      end
     end
   end
 end
