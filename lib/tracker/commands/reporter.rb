@@ -3,20 +3,21 @@ require 'csv'
 module Tracker
   module Commands
     class Reporter
-      def self.run(options = {})
-        self.new(options).run
+      def self.run(grouper, options = {})
+        self.new(grouper, options).run
       end
 
-      def initialize(options = {})
+      def initialize(grouper, options = {})
         today = Time.now
         @year = options[:year] || today.year
         @month = options[:month] || today.month
         @record_list = Tracker::RecordList.new(Tracker::DEFAULT_CSV_PATH)
+        @grouper = grouper
       end
 
       def run
-        category_summary = Tracker::CategorySummary.new(records)
-        puts Tracker::GraphFormatter.new(category_summary.lines).to_s
+        summary = grouper.new(records)
+        puts Tracker::GraphFormatter.new(summary.lines).to_s
       end
 
       private
@@ -27,7 +28,7 @@ module Tracker
         end
       end
 
-      attr_reader :record_list, :year, :month
+      attr_reader :record_list, :year, :month, :grouper
     end
   end
 end

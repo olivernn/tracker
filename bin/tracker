@@ -15,6 +15,7 @@ default_command :record
 command :record do |c|
   c.syntax = 'tracker record'
   c.description = 'enters interactive record mode'
+
   c.action do
     Tracker::Commands::Recorder.run
   end
@@ -25,7 +26,20 @@ command :report do |c|
   c.description = 'generates a csv report of time spent per project'
   c.option '--month NUMBER', Integer, 'Selects the month to report on, defaults to current month'
   c.option '--year NUMBER', Integer, 'Selects the year to report on, defaults to current year'
+  c.option '--category', 'Groups by category'
+  c.option '--project', 'Groups by project'
+
   c.action do |args, options|
-    puts Tracker::Commands::Reporter.run(year: options.year, month: options.month)
+    grouping = begin
+      if options.category
+        Tracker::CategorySummary
+      elsif options.project
+        Tracker::ProjectSummary
+      else
+        Tracker::CategorySummary
+      end
+    end
+
+    puts Tracker::Commands::Reporter.run(grouping, year: options.year, month: options.month)
   end
 end
