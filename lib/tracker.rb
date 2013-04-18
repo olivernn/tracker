@@ -7,6 +7,7 @@ require "tracker/record"
 require "tracker/record_list"
 require "tracker/record_presenter"
 
+require "tracker/base_summary"
 require "tracker/category_summary"
 
 require "tracker/graph_formatter"
