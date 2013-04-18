@@ -9,6 +9,7 @@ require "tracker/record_presenter"
 
 require "tracker/base_summary"
 require "tracker/category_summary"
+require "tracker/project_summary"
 
 require "tracker/graph_formatter"
 
