@@ -9,12 +9,12 @@ module Tracker
     end
 
     def as_csv
-      [category.downcase, project.downcase, duration, description, created_at]
+      [category.downcase, project.downcase, task.downcase, duration, description, created_at]
     end
 
     private
 
-    def_delegators :@record, :category, :project, :duration, :description
+    def_delegators :@record, :category, :project, :task, :duration, :description
 
     attr_reader :record
 

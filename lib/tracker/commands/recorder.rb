@@ -48,8 +48,11 @@ module Tracker
         Readline.completion_proc = proc { |s|
           Tracker::CATEGORIES.grep(/^#{Regexp.escape(s.upcase)}/) +
           record_list.projects
-            .grep(/^#{Regexp.escape(s.gsub('#', ''))}/)
-            .map { |s| "##{s}" }
+           .grep(/^#{Regexp.escape(s.gsub('#', ''))}/)
+           .map { |s| "##{s}" } +
+          record_list.tasks
+           .grep(/^#{Regexp.escape(s.gsub('!', ''))}/)
+           .map { |s| "!#{s}"}
         }
       end
 

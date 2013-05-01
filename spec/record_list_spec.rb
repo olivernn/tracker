@@ -14,6 +14,22 @@ describe Tracker::RecordList do
     it { should == %w(tracker truestory mandays hx website) }
   end
 
+  describe "#tasks" do
+    context "with a project" do
+      subject { Tracker::RecordList.new(csv_path).tasks('truestory')}
+
+      its(:count) { should == 2 }
+      it { should == %w(notifications fix) }
+    end
+
+    context "without a project" do
+      subject { Tracker::RecordList.new(csv_path).tasks }
+
+      its(:count) { should == 3 }
+      it { should == %w(notifications fix opensource) }
+    end
+  end
+
   describe "#<<" do
     subject { Tracker::RecordList.new(csv_path) }
     let(:record) { Tracker::Record.new(category: 'foo', project: 'foo') }

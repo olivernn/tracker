@@ -100,5 +100,33 @@ describe Tracker::LineParser do
         subject[:minutes].should == 0
       end
     end
+
+    context "category, project, task, duration and description" do
+      let(:line) { "DEV_SUPPORT #efg !loans 1h30m | this is a description" }
+
+      it "should extract the category" do
+        subject[:category].should == 'DEV_SUPPORT'
+      end
+
+      it "should extract the hours" do
+        subject[:hours].should == 1
+      end
+
+      it "should extract the minutes" do
+        subject[:minutes].should == 30
+      end
+
+      it "should extract the task" do
+        subject[:task].should == 'loans'
+      end
+
+      it "should extract the project" do
+        subject[:project].should == 'efg'
+      end
+
+      it "should have a description" do
+        subject[:description].should == 'this is a description'
+      end
+    end
   end
 end 

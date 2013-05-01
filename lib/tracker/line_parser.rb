@@ -2,6 +2,7 @@ module Tracker
   class LineParser
 
     PROJECT_NAME_REGEX = /\#(\w+)/
+    TASK_NAME_REGEX = /\!(\w+)/
     HOURS_REGEX = /(\d+)h/
     MINUTES_REGEX = /(\d+)m/
     DESCRIPTION_REGEX = /\|(.+)/
@@ -13,7 +14,7 @@ module Tracker
     end
 
     def parse
-      [:category, :hours, :minutes, :project, :description].inject({}) do |memo, attr|
+      [:category, :hours, :minutes, :project, :task, :description].inject({}) do |memo, attr|
         val = send(attr)
         memo[attr] = val unless val.nil?
         memo
@@ -39,6 +40,12 @@ module Tracker
         match.captures.first.to_i
       else
         0
+      end
+    end
+
+    def task
+      if match = line.match(TASK_NAME_REGEX)
+        match.captures.first
       end
     end
 

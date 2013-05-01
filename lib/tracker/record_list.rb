@@ -21,6 +21,16 @@ module Tracker
       records.map(&:project).uniq
     end
 
+    def tasks(project = nil)
+      if project.nil?
+        scope = records
+      else
+        scope = records.select { |r| r.project == project }
+      end
+
+      scope.map(&:task).uniq.reject(&:empty?)
+    end
+
     def <<(record)
       records << record
       csv << Tracker::RecordPresenter.new(record).as_csv

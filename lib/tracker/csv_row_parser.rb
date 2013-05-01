@@ -3,11 +3,11 @@ require 'time'
 module Tracker
   class CSVRowParser
     def initialize(row = [])
-      @category, @project, @duration, @description, @date = row
+      @category, @project, @task, @duration, @description, @date = row
     end
 
     def parse
-      [:category, :project, :minutes, :description, :created_at].inject({}) do |memo, attr|
+      [:category, :project, :task, :minutes, :description, :created_at].inject({}) do |memo, attr|
         value = self.send(attr)
         memo[attr] = value unless value.nil?
         memo
@@ -16,7 +16,7 @@ module Tracker
 
     private
 
-    attr_reader :category, :project, :duration, :description, :date
+    attr_reader :category, :project, :task, :duration, :description, :date
 
     def created_at
       Time.parse(date)

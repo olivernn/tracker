@@ -7,6 +7,7 @@ describe Tracker::Record do
       hours: 1,
       minutes: 30,
       project: 'efg',
+      task: 'loans',
       description: 'lots of jolly good work'
     } }
 
@@ -15,6 +16,7 @@ describe Tracker::Record do
     its(:category) { should == 'DEV_SUPPORT' }
     its(:duration) { should == 90 }
     its(:project) { should == 'efg' }
+    its(:task) { should == 'loans' }
     its(:description) { should == 'lots of jolly good work' }
     its(:created_at) { should_not be_nil }
 

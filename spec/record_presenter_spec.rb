@@ -5,6 +5,7 @@ describe Tracker::RecordPresenter do
     let(:record) { double({
       category: 'DEV_SUPPORT',
       project: 'Efg',
+      task: 'loans',
       duration: 90,
       description: 'Some Awesome Project YO',
       created_at: Time.new(2013,1,1)
@@ -22,16 +23,20 @@ describe Tracker::RecordPresenter do
       subject[1].should == 'efg'
     end
 
+    it "should include the task name" do
+      subject[2].should == 'loans'
+    end
+
     it "should include the duration" do
-      subject[2].should == 90
+      subject[3].should == 90
     end
 
     it "should include the description" do
-      subject[3].should == 'Some Awesome Project YO'
+      subject[4].should == 'Some Awesome Project YO'
     end
 
     it "should include the created_at" do
-      subject[4].should == '2013-01-01'
+      subject[5].should == '2013-01-01'
     end
   end
 end
