@@ -6,10 +6,10 @@ describe Tracker::LineParser do
     subject { line_parser.parse }
 
     context "category and duration only" do
-      let(:line) { "DEV_SUPPORT 1h30m" }
+      let(:line) { "CLIENT_SUPPORT 1h30m" }
 
       it "should extract the category" do
-        subject[:category].should == 'DEV_SUPPORT'
+        subject[:category].should == 'CLIENT_SUPPORT'
       end
 
       it "should extract the hours" do
@@ -30,10 +30,10 @@ describe Tracker::LineParser do
     end
 
     context "category, project and duration" do
-      let(:line) { "DEV_SUPPORT #efg 1h30m" }
+      let(:line) { "CLIENT_SUPPORT #efg 1h30m" }
 
       it "should extract the category" do
-        subject[:category].should == 'DEV_SUPPORT'
+        subject[:category].should == 'CLIENT_SUPPORT'
       end
 
       it "should extract the hours" do
@@ -54,10 +54,10 @@ describe Tracker::LineParser do
     end
 
     context "category, project, duration and description" do
-      let(:line) { "DEV_SUPPORT #efg 1h30m | this is a description" }
+      let(:line) { "CLIENT_SUPPORT #efg 1h30m | this is a description" }
 
       it "should extract the category" do
-        subject[:category].should == 'DEV_SUPPORT'
+        subject[:category].should == 'CLIENT_SUPPORT'
       end
 
       it "should extract the hours" do
@@ -78,7 +78,7 @@ describe Tracker::LineParser do
     end
 
     context "duration has minutes only" do
-      let(:line) { "DEV_SUPPORT #efg 30m | this is a description" }
+      let(:line) { "CLIENT_SUPPORT #efg 30m | this is a description" }
 
       it "should extract the hours" do
         subject[:hours].should == 0
@@ -90,7 +90,7 @@ describe Tracker::LineParser do
     end
 
     context "duration has hours only" do
-      let(:line) { "DEV_SUPPORT #efg 1h | this is a description" }
+      let(:line) { "CLIENT_SUPPORT #efg 1h | this is a description" }
 
       it "should extract the hours" do
         subject[:hours].should == 1
@@ -102,10 +102,10 @@ describe Tracker::LineParser do
     end
 
     context "category, project, task, duration and description" do
-      let(:line) { "DEV_SUPPORT #efg !loans 1h30m | this is a description" }
+      let(:line) { "CLIENT_SUPPORT #efg !loans 1h30m | this is a description" }
 
       it "should extract the category" do
-        subject[:category].should == 'DEV_SUPPORT'
+        subject[:category].should == 'CLIENT_SUPPORT'
       end
 
       it "should extract the hours" do
